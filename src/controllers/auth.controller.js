@@ -21,13 +21,11 @@ async function registerUserController(req, res) {
     if (isUserAlreadyExist) {
         return res.status(400).json({ message: "User already exist,Please Login" })
     }
-    // 
-    const hashedpassword = await bcrypt.hash(password, 10)
     // create the user
     const user = await userModel.create({
         username,
         email,
-        password: hashedpassword
+        password: password // Pass the plain password, Mongoose will validate and then hash it
     })
     const token = jwt.sign(
         { id: user._id, username: user.username },
@@ -52,7 +50,7 @@ async function loginUserController(req, res) {
             message: "Invalid email or password"
         })
     }
-    const isPasswordValid = await bcrypt.compare(password, user.password)
+    const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
         return res.status(400).json({
             message: "Invalid email or password"
