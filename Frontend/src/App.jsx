@@ -8,5 +8,5 @@ const App = () => {
     </div>
   )
 }
-
+// Entry file
 export default App
