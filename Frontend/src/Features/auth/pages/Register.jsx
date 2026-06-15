@@ -1,11 +1,34 @@
 import React from 'react'
 import "../auth.form.scss";
 import "../../../style.scss";
+import { useAuth } from '../hooks/useAuth.js';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const { loading, handleRegister } = useAuth()
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const [username, setUsername] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const [confirmPassword, setConfirmPassword] = React.useState('')
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        if (password !== confirmPassword) {
+            alert('Passwords do not match')
+            return
+        }
+        try {
+            await handleRegister({ username, email, password })
+            navigate('/login')
+        } catch (error) {
+            console.error('%c Register Failed ❌', 'color: red; font-weight: bold;', error)
+        }
+    }
+
+    if (loading) {
+        return <h1 style={{ color: 'white', fontSize: '2rem' }}>Loading...</h1>
     }
 
     return (
@@ -16,19 +39,23 @@ const Register = () => {
                 <form onSubmit={handleSubmit}>
                     <div className='input-group'>
                         <label htmlFor='username'>Username</label>
-                        <input type="text" id="username" name="username" placeholder='enter your username' />
+                        <input onChange={(e) => setUsername(e.target.value)}
+                            type="text" id="username" name="username" placeholder='enter your username' />
                     </div>
                     <div className='input-group'>
                         <label htmlFor='email'>Email</label>
-                        <input type="email" id="email" name="email" placeholder='enter your email address' />
+                        <input onChange={(e) => setEmail(e.target.value)}
+                            type="email" id="email" name="email" placeholder='enter your email address' />
                     </div>
                     <div className='input-group'>
                         <label htmlFor='password'>Password</label>
-                        <input type="password" id="password" name="password" placeholder='enter your password' />
+                        <input onChange={(e) => setPassword(e.target.value)}
+                            type="password" id="password" name="password" placeholder='enter your password' />
                     </div>
                     <div className='input-group'>
                         <label htmlFor='confirmPassword'>Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder='confirm your password' />
+                        <input onChange={(e) => setConfirmPassword(e.target.value)}
+                            type="password" id="confirmPassword" name="confirmPassword" placeholder='confirm your password' />
                     </div>
                     <button className='button primary-button' type='submit'>Create Account</button>
                     <p className='auth-redirect'>Already have an account? <a href='/login'>Login</a></p>

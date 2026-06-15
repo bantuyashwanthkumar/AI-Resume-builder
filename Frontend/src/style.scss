@@ -1,3 +1,5 @@
+@use "./style/button.scss";
+
 * {
     margin: 0;
     padding: 0;
@@ -15,3 +17,8 @@ body,
     color: whitesmoke;
     font-family: 'Roboto', sans-serif;
 }
+
+
+////
+///  This page is for global styles. You can add any styles here that you want to be applied across the entire application.
+/// 
