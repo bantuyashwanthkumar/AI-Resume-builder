@@ -1,22 +1,32 @@
 import React from 'react';
+import "../auth.form.scss";
+import "../../../style.scss";
 
 const Login = () => {
+    
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
+
     return (
-        <Card>
-            <h1 style={{ color: 'white' }}>Login Page</h1>
-            <p>Welcome to the login page!</p>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input type="text" id="username" name="username" />
+       <main>
+          <div className='form-container'>
+            <h1>Login</h1>
+
+            <form onSubmit={handleSubmit}>
+                <div className='input-group'>
+                    <label htmlFor='email'>Email</label>
+                    <input type="email" id="email" name="email" placeholder='enter your email Address'></input>
                 </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" name="password" />
+                <div className='input-group'>
+                    <label htmlFor='password'>Password</label>
+                    <input type="password" id="password" name="password" placeholder='enter your password'></input>
                 </div>
-                <button type="submit">Login</button>
+                <button className='button primary-button' type='submit'>Login</button>
+                <p className='auth-redirect'>Don't have an account? <a href='/register'>Register</a></p>
             </form>
-        </Card>
+          </div>
+       </main>
     );
 }
 

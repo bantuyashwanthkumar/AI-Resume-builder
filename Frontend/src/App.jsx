@@ -1,12 +1,17 @@
-import {ReactProvider} from "react-router";
-import {router} from "./app.routes.jsx"; 
 import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Login from './Features/auth/pages/Login.jsx'
+import Register from './Features/auth/pages/Register.jsx'
 
 const App = () => {
   return (
-    <div>
-      <h1 style={{ color: 'white', fontSize: '2rem', backgroundColor: 'black' }}>Welcome to My App</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<h1 style={{ color: 'white', fontSize: '2rem' }}>Welcome to My App</h1>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
