@@ -8,10 +8,10 @@ const Register = () => {
     const { loading, handleRegister } = useAuth()
     const navigate = useNavigate()
 
-    const [username, setUsername] = React.useState('')
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-    const [confirmPassword, setConfirmPassword] = React.useState('')
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -23,12 +23,12 @@ const Register = () => {
             await handleRegister({ username, email, password })
             navigate('/login')
         } catch (error) {
-            console.error('%c Register Failed ❌', 'color: red; font-weight: bold;', error)
+            console.error('%c Register Failed', 'color: red; font-weight: bold;', error)
         }
     }
 
     if (loading) {
-        return <h1 style={{ color: 'white', fontSize: '2rem' }}>Loading...</h1>
+        return <h1 style={{ color: 'white', fontSize: '2rem', display: 'block', alignItems: 'center',textAlign: 'center' }}>Loading...</h1>
     }
 
     return (
