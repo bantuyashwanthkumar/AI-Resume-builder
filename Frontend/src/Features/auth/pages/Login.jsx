@@ -1,24 +1,25 @@
 import React from 'react';
 import "../auth.form.scss";
 import "../../../style.scss";
+import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth.js';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     
-    const { loading, handlelogin } = useAuth()
+    const { loading, handleLogin } = useAuth()
     const navigate = useNavigate()
 
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await handlelogin({ email, password })
+            await handleLogin({ email, password })
             navigate('/')
         } catch (error) {
-            console.error('%c Login Failed ❌', 'color: red; font-weight: bold;', error)
+            console.error('%c Login Failed', 'color: red; font-weight: bold;', error)
         }
     }
 
